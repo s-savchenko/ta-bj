@@ -1,0 +1,11 @@
+{
+    "name": "s.savchenko/ta-beejee",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Sergey Savchenko",
+            "email": "s.savchenko@outlook.com"
+        }
+    ],
+    "require": {}
+}

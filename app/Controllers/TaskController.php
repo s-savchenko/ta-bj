@@ -69,4 +69,29 @@ class TaskController extends Controller
             return $this->response->withStatus(404);
         }
     }
+
+    public function update()
+    {
+        if (!$this->isAuthenticated()) {
+            return $this->response->withStatus(403);
+        }
+
+        $query = $this->request->getQueryParams();
+        /** @var Task $task */
+        $task = isset($query['id']) ? Task::find($query['id']) : null;
+        if ($task) {
+            $parsedBody = $this->request->getParsedBody();
+            $task->user_name = isset($parsedBody['user_name']) ? trim($parsedBody['user_name']) : '';
+            $task->email = isset($parsedBody['email']) ? trim($parsedBody['email']) : '';
+            $task->content = isset($parsedBody['content']) ? trim($parsedBody['content']) : '';
+            $task->status = isset($parsedBody['done']) ? Task::STATUS_DONE : Task::STATUS_NEW;
+            if ($this->validate($task->user_name, $task->email, $task->content)) {
+                $task->save();
+                return $this->response->withHeader('Location', '/');
+            }
+            return $this->response;
+        } else {
+            return $this->response->withStatus(404);
+        }
+    }
 }

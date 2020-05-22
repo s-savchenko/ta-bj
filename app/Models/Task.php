@@ -17,5 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Task extends Model
 {
+    const STATUS_NEW = 'new';
+    const STATUS_DONE = 'done';
+
     protected $fillable = ['user_name', 'email', 'content'];
 }

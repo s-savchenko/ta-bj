@@ -33,7 +33,7 @@
         </div>
         @if (isset($isAuthenticated) && $isAuthenticated)
             <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="statusCheck" name="status">
+                <input type="checkbox" class="form-check-input" id="statusCheck" name="done">
                 <label class="form-check-label" for="statusCheck">Задача выполнена</label>
             </div>
         @endif

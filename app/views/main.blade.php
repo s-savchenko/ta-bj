@@ -1,8 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="text-right mt-2">
-        <a href="/login" class="text-muted">Вход для администратора</a>
+    <div class="text-right mt-2 text-muted">
+        @if ($isAuthenticated)
+            Вы вошли, как администратор. <a href="/logout">Выйти</a>
+        @else
+            <a href="/login" class="text-muted">Вход для администратора</a>
+        @endif
     </div>
     <h1 class="my-5 text-center">Список задач</h1>
     <div class="row my-4">

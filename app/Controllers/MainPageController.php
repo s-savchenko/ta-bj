@@ -31,8 +31,11 @@ class MainPageController extends Controller
 
         $pagesCount = ceil(Task::query()->count() / $perPage);
 
+        $isAuthenticated = $this->isAuthenticated();
+
         $this->response->getBody()->write(
-            $this->blade->render('main', compact('tasks', 'sortDirection', 'sortField', 'pagesCount', 'page'))
+            $this->blade->render('main',
+                compact('tasks', 'sortDirection', 'sortField', 'pagesCount', 'page', 'isAuthenticated'))
         );
 
         return $this->response;

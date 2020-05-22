@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="text-right mt-2">
-        <a href="#" class="text-muted">Вход для администратора</a>
-    </div>
     <h1 class="my-5 text-center">Добавить задачу</h1>
     <form class="mb-4" method="post">
         <div class="form-group">

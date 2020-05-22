@@ -14,27 +14,15 @@
         </div>
     </div>
     <div>
+        @foreach($tasks as $task)
         <div class="card mb-3">
             <div class="card-body">
-                <p class="text-muted">Сергей Савченко (<b>s.savchenko@outlook.com</b>)</p>
-                <p>Длинный текст озадачи идет здесь. Длинный текст озадачи идет здесь. Длинный текст озадачи идет здесь. </p>
-                <div class="text-success">Выполнено</div>
+                <p class="text-muted">{{ $task->user_name }} (<b>{{ $task->email }}</b>)</p>
+                <p>{{ $task->content }}</p>
+                <div class="text-success">{{ $task->status }}</div>
             </div>
         </div>
-        <div class="card mb-3">
-            <div class="card-body">
-                <p class="text-muted">Сергей Савченко (<b>s.savchenko@outlook.com</b>)</p>
-                <p>Длинный текст озадачи идет здесь. Длинный текст озадачи идет здесь. Длинный текст озадачи идет здесь. </p>
-                <div class="text-danger">Не выполнено</div>
-            </div>
-        </div>
-        <div class="card mb-3">
-            <div class="card-body">
-                <p class="text-muted">Сергей Савченко (<b>s.savchenko@outlook.com</b>)</p>
-                <p>Длинный текст озадачи идет здесь. Длинный текст озадачи идет здесь. Длинный текст озадачи идет здесь. </p>
-                <div class="text-danger">Не выполнено</div>
-            </div>
-        </div>
+        @endforeach
     </div>
     <nav aria-label="Page navigation example" class="mt-4">
         <ul class="pagination">

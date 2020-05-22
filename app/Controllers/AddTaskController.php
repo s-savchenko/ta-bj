@@ -20,17 +20,28 @@ class AddTaskController extends Controller
         $email = isset($parsedBody['email']) ? trim($parsedBody['email']) : '';
         $content = isset($parsedBody['content']) ? trim($parsedBody['content']) : '';
 
+        if ($this->validate($userName, $email, $content)) {
+            //save
+        }
+
+        return $this->response;
+    }
+
+    private function validate(string $userName, string $email, string $content): bool
+    {
         $userNameFailed = $userName === '';
         $emailFailed = $email === '';
         $contentFailed = $content === '';
 
-        if ($userNameFailed || $emailFailed || $contentFailed) {
+        $failed = $userNameFailed || $emailFailed || $contentFailed;
+
+        if ($failed) {
             $this->response->getBody()->write(
                 $this->blade->render('add-task', compact('userName', 'email', 'content', 'userNameFailed',
                     'emailFailed', 'contentFailed'))
             );
         }
 
-        return $this->response;
+        return !$failed;
     }
 }

@@ -8,6 +8,8 @@ class MainPageController extends Controller
 {
     public function index()
     {
-        return 'controller main page';
+        $this->response->getBody()->write($this->blade->render('main'));
+
+        return $this->response;
     }
 }

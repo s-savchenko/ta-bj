@@ -24,6 +24,7 @@ class AddTaskController extends Controller
 
         if ($this->validate($user_name, $email, $content)) {
             Task::create(compact('user_name', 'email', 'content'));
+            return $this->response->withHeader('Location', '/');
         }
 
         return $this->response;

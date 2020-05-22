@@ -1,5 +1,6 @@
 <?php
 
+use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Relay\Relay;
@@ -12,3 +13,6 @@ $container = require __DIR__ . '/di.php';
 
 $requestHandler = new Relay(require __DIR__ . '/middleware.php');
 $response = $requestHandler->handle($container->get(ServerRequestInterface::class));
+
+$emiter = new SapiEmitter();
+$emiter->emit($response);

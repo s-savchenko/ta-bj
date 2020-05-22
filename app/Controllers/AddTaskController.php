@@ -8,7 +8,7 @@ use App\Models\Task;
 
 class AddTaskController extends Controller
 {
-    public function index()
+    public function create()
     {
         $this->response->getBody()->write($this->blade->render('task'));
 

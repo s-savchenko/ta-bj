@@ -6,7 +6,7 @@ use App\Controllers\MainPageController;
 
 return [
     ['GET', '/', [MainPageController::class, 'index']],
-    ['GET', '/add-task', [AddTaskController::class, 'index']],
+    ['GET', '/add-task', [AddTaskController::class, 'create']],
     ['POST', '/add-task', [AddTaskController::class, 'store']],
     ['GET', '/login', [LoginController::class, 'index']],
     ['POST', '/login', [LoginController::class, 'login']],

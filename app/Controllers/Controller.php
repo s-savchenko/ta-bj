@@ -20,4 +20,11 @@ abstract class Controller
         $this->response = $response;
         $this->blade = $blade;
     }
+
+    protected function isAuthenticated()
+    {
+        $cookies = $this->request->getCookieParams();
+
+        return isset($cookies['auth']) && $cookies['auth'] === '111';
+    }
 }

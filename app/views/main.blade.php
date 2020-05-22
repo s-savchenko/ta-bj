@@ -10,7 +10,12 @@
             <a href="/add-task" class="btn btn-primary">Добавить задачу</a>
         </div>
         <div class="col text-right">
-            Сортировать по: <a href="#">Имени пользователя</a> | <a href="#">Email</a> | <a href="#">Статусу</a>
+            Сортировать по:
+            <a href="/?sort={{ $sortField === 'user_name' && $sortDirection === 'asc' ? '-' : '' }}user_name">
+                Имени пользователя
+            </a>
+            | <a href="/?sort={{ $sortField === 'email' && $sortDirection === 'asc' ? '-' : '' }}email">Email</a>
+            | <a href="/?sort={{ $sortField === 'status' && $sortDirection === 'asc' ? '-' : '' }}status">Статусу</a>
         </div>
     </div>
     <div>

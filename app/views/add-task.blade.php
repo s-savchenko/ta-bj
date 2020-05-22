@@ -36,5 +36,5 @@
         </div>
         <button type="submit" class="btn btn-primary">Сохранить</button>
     </form>
-    <a href="#" class="text-muted">⇦ К списку задач</a>
+    <a href="/" class="text-muted">⇦ К списку задач</a>
 @endsection

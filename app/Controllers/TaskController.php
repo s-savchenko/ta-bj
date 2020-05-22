@@ -6,7 +6,7 @@ namespace App\Controllers;
 
 use App\Models\Task;
 
-class AddTaskController extends Controller
+class TaskController extends Controller
 {
     public function create()
     {

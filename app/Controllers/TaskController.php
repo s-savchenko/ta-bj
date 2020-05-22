@@ -32,9 +32,9 @@ class TaskController extends Controller
 
     private function fillTaskWithRequestData(Task &$task): Task
     {
-        $task->user_name = $this->getPostParam('user_name');
-        $task->email = $this->getPostParam('email');
-        $task->content = $this->getPostParam('content');
+        $task->user_name = trim($this->getPostParam('user_name'));
+        $task->email = trim($this->getPostParam('email'));
+        $task->content = trim($this->getPostParam('content'));
 
         return $task;
     }

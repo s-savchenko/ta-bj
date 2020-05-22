@@ -1,6 +1,8 @@
 <?php
 
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Relay\Relay;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/errorHandler.php';
@@ -8,4 +10,5 @@ require_once __DIR__ . '/errorHandler.php';
 /** @var ContainerInterface $container */
 $container = require __DIR__ . '/di.php';
 
-$middlewareQueue = require __DIR__ . '/middleware.php';
+$requestHandler = new Relay(require __DIR__ . '/middleware.php');
+$response = $requestHandler->handle($container->get(ServerRequestInterface::class));

@@ -61,7 +61,7 @@ class TaskController extends Controller
     public function edit()
     {
         if (!$this->isAuthenticated()) {
-            return $this->response->withStatus(403);
+            return $this->response->withHeader('Location', '/login');
         }
 
         $query = $this->request->getQueryParams();
@@ -82,7 +82,7 @@ class TaskController extends Controller
     public function update()
     {
         if (!$this->isAuthenticated()) {
-            return $this->response->withStatus(403);
+            return $this->response->withHeader('Location', '/login');
         }
 
         $query = $this->request->getQueryParams();

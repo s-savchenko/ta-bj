@@ -10,39 +10,50 @@ class TaskController extends Controller
 {
     public function create()
     {
-        $this->response->getBody()->write($this->blade->render('task'));
+        $this->response->getBody()->write(
+            $this->blade->render('task', ['task' => new Task()])
+        );
 
         return $this->response;
     }
 
     public function store()
     {
-        $parsedBody = $this->request->getParsedBody();
-        $user_name = isset($parsedBody['user_name']) ? trim($parsedBody['user_name']) : '';
-        $email = isset($parsedBody['email']) ? trim($parsedBody['email']) : '';
-        $content = isset($parsedBody['content']) ? trim($parsedBody['content']) : '';
+        $task = new Task();
+        $task = $this->fillTaskWithRequestData($task);
 
-        if ($this->validate($user_name, $email, $content)) {
-            Task::create(compact('user_name', 'email', 'content'));
+        if ($this->validate($task)) {
+            $task->save();
             return $this->response->withHeader('Location', '/');
         }
 
         return $this->response;
     }
 
-    private function validate(string $user_name, string $email, string $content): bool
+    private function fillTaskWithRequestData(Task &$task): Task
     {
-        $userNameFailed = $user_name === '';
-        $emailFailed = !filter_var($email, FILTER_VALIDATE_EMAIL);
-        $contentFailed = $content === '';
+        $parsedBody = $this->request->getParsedBody();
+
+        $task->user_name = isset($parsedBody['user_name']) ? trim($parsedBody['user_name']) : '';
+        $task->email = isset($parsedBody['email']) ? trim($parsedBody['email']) : '';
+        $task->content = isset($parsedBody['content']) ? trim($parsedBody['content']) : '';
+
+        return $task;
+    }
+
+    private function validate(Task $task): bool
+    {
+        $userNameFailed = $task->user_name === '';
+        $emailFailed = !filter_var($task->email, FILTER_VALIDATE_EMAIL);
+        $contentFailed = $task->content === '';
 
         $failed = $userNameFailed || $emailFailed || $contentFailed;
 
         if ($failed) {
             $isAuthenticated = $this->isAuthenticated();
             $this->response->getBody()->write(
-                $this->blade->render('task', compact('user_name', 'email', 'content', 'userNameFailed',
-                    'emailFailed', 'contentFailed', 'isAuthenticated'))
+                $this->blade->render('task',
+                    compact('task', 'userNameFailed', 'emailFailed', 'contentFailed', 'isAuthenticated'))
             );
         }
 
@@ -59,7 +70,7 @@ class TaskController extends Controller
         /** @var Task $task */
         $task = isset($query['id']) ? Task::find($query['id']) : null;
         if ($task) {
-            $params = $task->attributesToArray();
+            $params = compact('task');
             $params['isAuthenticated'] = $this->isAuthenticated();
             $this->response->getBody()->write(
                 $this->blade->render('task', $params)
@@ -80,12 +91,10 @@ class TaskController extends Controller
         /** @var Task $task */
         $task = isset($query['id']) ? Task::find($query['id']) : null;
         if ($task) {
+            $task = $this->fillTaskWithRequestData($task);
             $parsedBody = $this->request->getParsedBody();
-            $task->user_name = isset($parsedBody['user_name']) ? trim($parsedBody['user_name']) : '';
-            $task->email = isset($parsedBody['email']) ? trim($parsedBody['email']) : '';
-            $task->content = isset($parsedBody['content']) ? trim($parsedBody['content']) : '';
-            $task->status = isset($parsedBody['done']) ? Task::STATUS_DONE : Task::STATUS_NEW;
-            if ($this->validate($task->user_name, $task->email, $task->content)) {
+            if ($this->validate($task)) {
+                $task->status = isset($parsedBody['done']) ? Task::STATUS_DONE : Task::STATUS_NEW;
                 $task->save();
                 return $this->response->withHeader('Location', '/');
             }

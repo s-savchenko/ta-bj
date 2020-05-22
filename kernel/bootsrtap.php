@@ -8,6 +8,8 @@ use Relay\Relay;
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/errorHandler.php';
 
+session_start();
+
 /** @var ContainerInterface $container */
 $container = require __DIR__ . '/di.php';
 

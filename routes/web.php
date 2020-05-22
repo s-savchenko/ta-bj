@@ -10,4 +10,5 @@ return [
     ['POST', '/add-task', [AddTaskController::class, 'store']],
     ['GET', '/login', [LoginController::class, 'index']],
     ['POST', '/login', [LoginController::class, 'login']],
+    ['GET', '/logout', [LoginController::class, 'logout']],
 ];

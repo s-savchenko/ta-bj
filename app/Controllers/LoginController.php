@@ -38,4 +38,12 @@ class LoginController extends Controller
         //В дальнейшем проверять авторизацию по этому ключу. Но в задании ничего не сказано про то, что нужно хранить
         //пользователей в базе, поэтому оставляю такой костыль для экономии времени.
     }
+
+    public function logout()
+    {
+        return
+            $this->response
+                ->withHeader('Set-cookie', 'auth=')
+                ->withHeader('Location', '/');
+    }
 }

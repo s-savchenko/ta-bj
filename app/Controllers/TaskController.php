@@ -27,6 +27,7 @@ class TaskController extends Controller
 
         if ($this->validate($task)) {
             $task->save();
+            $_SESSION["task_saved"] = 1;
             return $this->response->withHeader('Location', '/');
         }
 

@@ -33,9 +33,14 @@ class MainPageController extends Controller
 
         $isAuthenticated = $this->isAuthenticated();
 
+        $taskSaved = isset($_SESSION["task_saved"]);
+        if ($taskSaved) {
+            unset($_SESSION["task_saved"]);
+        }
+
         $this->response->getBody()->write(
             $this->blade->render('main',
-                compact('tasks', 'sortDirection', 'sortField', 'pagesCount', 'page', 'isAuthenticated'))
+                compact('tasks', 'sortDirection', 'sortField', 'pagesCount', 'page', 'isAuthenticated', 'taskSaved'))
         );
 
         return $this->response;

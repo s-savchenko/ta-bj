@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="text-right mt-2">
-        <a href="#" class="text-muted">Вход для администратора</a>
+        <a href="/login" class="text-muted">Вход для администратора</a>
     </div>
     <h1 class="my-5 text-center">Список задач</h1>
     <div class="row my-4">

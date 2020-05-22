@@ -4,6 +4,8 @@
 namespace App\Controllers;
 
 
+use App\Models\Task;
+
 class AddTaskController extends Controller
 {
     public function index()
@@ -16,12 +18,12 @@ class AddTaskController extends Controller
     public function store()
     {
         $parsedBody = $this->request->getParsedBody();
-        $userName = isset($parsedBody['user_name']) ? trim($parsedBody['user_name']) : '';
+        $user_name = isset($parsedBody['user_name']) ? trim($parsedBody['user_name']) : '';
         $email = isset($parsedBody['email']) ? trim($parsedBody['email']) : '';
         $content = isset($parsedBody['content']) ? trim($parsedBody['content']) : '';
 
-        if ($this->validate($userName, $email, $content)) {
-            //save
+        if ($this->validate($user_name, $email, $content)) {
+            Task::create(compact('user_name', 'email', 'content'));
         }
 
         return $this->response;

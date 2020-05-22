@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string user_name
  * @property string email
  * @property string content
+ * @property string status
  */
 class Task extends Model
 {

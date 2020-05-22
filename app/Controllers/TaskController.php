@@ -89,6 +89,7 @@ class TaskController extends Controller
         /** @var Task $task */
         $task = isset($query['id']) ? Task::find($query['id']) : null;
         if ($task) {
+            $task->updated_by_admin = trim($this->getPostParam('content')) !== $task->content;
             $task = $this->fillTaskWithRequestData($task);
             if ($this->validate($task)) {
                 $task->status = $this->getPostParam('done') ? Task::STATUS_DONE : Task::STATUS_NEW;

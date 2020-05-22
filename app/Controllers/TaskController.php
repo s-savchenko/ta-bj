@@ -32,11 +32,9 @@ class TaskController extends Controller
 
     private function fillTaskWithRequestData(Task &$task): Task
     {
-        $parsedBody = $this->request->getParsedBody();
-
-        $task->user_name = isset($parsedBody['user_name']) ? trim($parsedBody['user_name']) : '';
-        $task->email = isset($parsedBody['email']) ? trim($parsedBody['email']) : '';
-        $task->content = isset($parsedBody['content']) ? trim($parsedBody['content']) : '';
+        $task->user_name = $this->getPostParam('user_name');
+        $task->email = $this->getPostParam('email');
+        $task->content = $this->getPostParam('content');
 
         return $task;
     }
@@ -92,9 +90,8 @@ class TaskController extends Controller
         $task = isset($query['id']) ? Task::find($query['id']) : null;
         if ($task) {
             $task = $this->fillTaskWithRequestData($task);
-            $parsedBody = $this->request->getParsedBody();
             if ($this->validate($task)) {
-                $task->status = isset($parsedBody['done']) ? Task::STATUS_DONE : Task::STATUS_NEW;
+                $task->status = $this->getPostParam('done') ? Task::STATUS_DONE : Task::STATUS_NEW;
                 $task->save();
                 return $this->response->withHeader('Location', '/');
             }

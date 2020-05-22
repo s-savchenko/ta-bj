@@ -27,4 +27,9 @@ abstract class Controller
 
         return isset($cookies['auth']) && $cookies['auth'] === '111';
     }
+
+    protected function getPostParam(string $name): string
+    {
+        return isset($this->request->getParsedBody()[$name]) ? $this->request->getParsedBody()[$name] : '';
+    }
 }

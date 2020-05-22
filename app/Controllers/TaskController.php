@@ -30,21 +30,43 @@ class TaskController extends Controller
         return $this->response;
     }
 
-    private function validate(string $userName, string $email, string $content): bool
+    private function validate(string $user_name, string $email, string $content): bool
     {
-        $userNameFailed = $userName === '';
+        $userNameFailed = $user_name === '';
         $emailFailed = !filter_var($email, FILTER_VALIDATE_EMAIL);
         $contentFailed = $content === '';
 
         $failed = $userNameFailed || $emailFailed || $contentFailed;
 
         if ($failed) {
+            $isAuthenticated = $this->isAuthenticated();
             $this->response->getBody()->write(
-                $this->blade->render('task', compact('userName', 'email', 'content', 'userNameFailed',
-                    'emailFailed', 'contentFailed'))
+                $this->blade->render('task', compact('user_name', 'email', 'content', 'userNameFailed',
+                    'emailFailed', 'contentFailed', 'isAuthenticated'))
             );
         }
 
         return !$failed;
+    }
+
+    public function edit()
+    {
+        if (!$this->isAuthenticated()) {
+            return $this->response->withStatus(403);
+        }
+
+        $query = $this->request->getQueryParams();
+        /** @var Task $task */
+        $task = isset($query['id']) ? Task::find($query['id']) : null;
+        if ($task) {
+            $params = $task->attributesToArray();
+            $params['isAuthenticated'] = $this->isAuthenticated();
+            $this->response->getBody()->write(
+                $this->blade->render('task', $params)
+            );
+            return $this->response;
+        } else {
+            return $this->response->withStatus(404);
+        }
     }
 }

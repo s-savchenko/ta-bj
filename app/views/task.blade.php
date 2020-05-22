@@ -7,7 +7,7 @@
             <label for="nameInput">Имя пользователя</label>
             <input type="text" class="form-control @if(isset($userNameFailed) && $userNameFailed) is-invalid @endif"
                    id="nameInput" placeholder="Имя пользователя" name="user_name"
-                   value="{{ isset($userName) ? $userName : '' }}" required>
+                   value="{{ isset($user_name) ? $user_name : '' }}" required>
             @if (isset($userNameFailed) && $userNameFailed)
                 <div class="text-danger"><small>Поле "Имя пользователя" обязательно для заполнения!</small></div>
             @endif
@@ -31,6 +31,12 @@
                 <div class="text-danger"><small>Поле "Текст задачи" обязательно для заполнения!</small></div>
             @endif
         </div>
+        @if (isset($isAuthenticated) && $isAuthenticated)
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="statusCheck" name="status">
+                <label class="form-check-label" for="statusCheck">Задача выполнена</label>
+            </div>
+        @endif
         <button type="submit" class="btn btn-primary">Сохранить</button>
     </form>
     <a href="/" class="text-muted">⇦ К списку задач</a>

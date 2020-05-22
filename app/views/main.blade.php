@@ -29,6 +29,9 @@
                 <p class="text-muted">{{ $task->user_name }} (<b>{{ $task->email }}</b>)</p>
                 <p>{{ $task->content }}</p>
                 <div class="text-success">{{ $task->status }}</div>
+                @if ($isAuthenticated)
+                    <div class="mt-3"><a href="/edit-task?id={{ $task->id }}"><small>Редактировать</small></a></div>
+                @endif
             </div>
         </div>
         @endforeach

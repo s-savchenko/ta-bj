@@ -11,4 +11,5 @@ return [
     ['GET', '/login', [LoginController::class, 'index']],
     ['POST', '/login', [LoginController::class, 'login']],
     ['GET', '/logout', [LoginController::class, 'logout']],
+    ['GET', '/edit-task', [TaskController::class, 'edit']],
 ];

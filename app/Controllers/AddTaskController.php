@@ -33,7 +33,7 @@ class AddTaskController extends Controller
     private function validate(string $userName, string $email, string $content): bool
     {
         $userNameFailed = $userName === '';
-        $emailFailed = $email === '';
+        $emailFailed = !filter_var($email, FILTER_VALIDATE_EMAIL);
         $contentFailed = $content === '';
 
         $failed = $userNameFailed || $emailFailed || $contentFailed;

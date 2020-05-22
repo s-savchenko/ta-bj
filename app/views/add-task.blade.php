@@ -17,11 +17,13 @@
         </div>
         <div class="form-group">
             <label for="emailInput">Email</label>
-            <input type="email" class="form-control @if(isset($emailFailed) && $emailFailed) is-invalid @endif"
+            <input type="text" class="form-control @if(isset($emailFailed) && $emailFailed) is-invalid @endif"
                    id="emailInput" placeholder="Email" name="email"
                    value="{{ isset($email) ? $email : '' }}">
             @if (isset($emailFailed) && $emailFailed)
-                <div class="text-danger"><small>Поле "Email" обязательно для заполнения!</small></div>
+                <div class="text-danger">
+                    <small>Поле "Email" обязательно для заполнения и должно иметь формат xxx@xxx.xx!</small>
+                </div>
             @endif
         </div>
         <div class="form-group">

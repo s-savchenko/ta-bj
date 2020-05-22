@@ -7,6 +7,7 @@ use Relay\Relay;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/errorHandler.php';
+require_once __DIR__ . '/env.php';
 
 session_start();
 

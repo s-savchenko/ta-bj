@@ -7,7 +7,7 @@
     <h1 class="my-5 text-center">Список задач</h1>
     <div class="row my-4">
         <div class="col">
-            <a href="#" class="btn btn-primary">Добавить задачу</a>
+            <a href="/add-task" class="btn btn-primary">Добавить задачу</a>
         </div>
         <div class="col text-right">
             Сортировать по: <a href="#">Имени пользователя</a> | <a href="#">Email</a> | <a href="#">Статусу</a>

@@ -11,6 +11,8 @@ require_once __DIR__ . '/errorHandler.php';
 /** @var ContainerInterface $container */
 $container = require __DIR__ . '/di.php';
 
+require_once __DIR__ . '/db.php';
+
 $requestHandler = new Relay(require __DIR__ . '/middleware.php');
 $response = $requestHandler->handle($container->get(ServerRequestInterface::class));
 

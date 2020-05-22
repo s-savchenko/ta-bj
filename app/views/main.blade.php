@@ -11,11 +11,11 @@
         </div>
         <div class="col text-right">
             Сортировать по:
-            <a href="/?sort={{ $sortField === 'user_name' && $sortDirection === 'asc' ? '-' : '' }}user_name">
+            <a href="/?sort={{ $sortField === 'user_name' && $sortDirection === '' ? '-' : '' }}user_name">
                 Имени пользователя
             </a>
-            | <a href="/?sort={{ $sortField === 'email' && $sortDirection === 'asc' ? '-' : '' }}email">Email</a>
-            | <a href="/?sort={{ $sortField === 'status' && $sortDirection === 'asc' ? '-' : '' }}status">Статусу</a>
+            | <a href="/?sort={{ $sortField === 'email' && $sortDirection === '' ? '-' : '' }}email">Email</a>
+            | <a href="/?sort={{ $sortField === 'status' && $sortDirection === '' ? '-' : '' }}status">Статусу</a>
         </div>
     </div>
     <div>
@@ -29,11 +29,19 @@
         </div>
         @endforeach
     </div>
-    <nav aria-label="Page navigation example" class="mt-4">
-        <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-        </ul>
-    </nav>
+
+    @if ($pagesCount > 1)
+        <nav class="mt-4">
+            <ul class="pagination">
+                @for($i = 1; $i <= $pagesCount; $i++)
+                    <li class="page-item @if($i === $page) active @endif">
+                        <a class="page-link"
+                           href="?{{ $sortField !== 'id' ? 'sort=' . $sortDirection . '' . $sortField . '&' : '' }}page={{ $i }}">
+                            {{ $i }}
+                        </a>
+                    </li>
+                @endfor
+            </ul>
+        </nav>
+    @endif
 @endsection

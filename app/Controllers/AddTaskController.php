@@ -10,7 +10,7 @@ class AddTaskController extends Controller
 {
     public function index()
     {
-        $this->response->getBody()->write($this->blade->render('add-task'));
+        $this->response->getBody()->write($this->blade->render('task'));
 
         return $this->response;
     }
@@ -40,7 +40,7 @@ class AddTaskController extends Controller
 
         if ($failed) {
             $this->response->getBody()->write(
-                $this->blade->render('add-task', compact('userName', 'email', 'content', 'userNameFailed',
+                $this->blade->render('task', compact('userName', 'email', 'content', 'userNameFailed',
                     'emailFailed', 'contentFailed'))
             );
         }

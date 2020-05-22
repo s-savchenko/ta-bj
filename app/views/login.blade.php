@@ -9,7 +9,7 @@
                    id="userName" placeholder="Логин"
                    name="login" value="{{ isset($login) ? $login : '' }}">
             @if (isset($loginFailed) && $loginFailed)
-                <div class="text-danger"><small>Поле "Логин" обязательно для заполнения!</small></div>
+                <div class="invalid-feedback">Поле "Логин" обязательно для заполнения!</div>
             @endif
         </div>
         <div class="form-group">
@@ -17,10 +17,13 @@
             <input type="password" class="form-control @if(isset($passwordFailed) && $passwordFailed) is-invalid @endif"
                    id="passwordInput" placeholder="Пароль"
                    name="password" value="{{ isset($password) ? $password : '' }}">
-            @if (isset($passwordIncorrect) && $passwordIncorrect)
-                <div class="invalid-feedback"><small>Поле "Пароль" обязательно для заполнения!</small></div>
+            @if (isset($passwordFailed) && $passwordFailed)
+                <div class="invalid-feedback">Поле "Пароль" обязательно для заполнения!</div>
             @endif
         </div>
+        @if (isset($loginFailed) && !$loginFailed && isset($passwordFailed) && !$passwordFailed && isset($success) && !$success)
+            <div class="text-danger">Проверьте правильность написания логина и пароля!</div>
+        @endif
         <button type="submit" class="btn btn-primary mt-3 text-capitalize">Войти</button>
     </form>
     <p class="mt-5">

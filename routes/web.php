@@ -1,5 +1,7 @@
 <?php
 
+use App\Controllers\MainPageController;
+
 return [
-    ['GET', '/', function () { return 'main page'; }]
+    ['GET', '/', [MainPageController::class, 'index']]
 ];

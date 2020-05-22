@@ -13,10 +13,9 @@ abstract class Controller
     protected ServerRequestInterface $request;
     protected ResponseInterface $response;
 
-    public function __construct(ServerRequestInterface $request, ResponseInterface $response, Blade $blade)
+    public function __construct(ServerRequestInterface $request, ResponseInterface $response)
     {
         $this->request = $request;
         $this->response = $response;
-        $this->blade = $blade;
     }
 }

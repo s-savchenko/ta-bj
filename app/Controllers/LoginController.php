@@ -32,6 +32,7 @@ class LoginController extends Controller
             return
                 $this->response
                     ->withHeader('Set-cookie', 'auth=111')
+                    ->withStatus(301)
                     ->withHeader('Location', '/');
         }
         //Конечно, нужно посмотреть пользователя в базе и при совпадении логина, пароля записать ключ в базу и в куки.
@@ -44,6 +45,7 @@ class LoginController extends Controller
         return
             $this->response
                 ->withHeader('Set-cookie', 'auth=')
+                ->withStatus(301)
                 ->withHeader('Location', '/');
     }
 }

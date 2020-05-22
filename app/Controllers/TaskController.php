@@ -11,7 +11,10 @@ class TaskController extends Controller
     public function create()
     {
         $this->response->getBody()->write(
-            $this->blade->render('task', ['task' => new Task()])
+            $this->blade->render('task', [
+                'task' => new Task(),
+                'isAuthenticated' => $this->isAuthenticated()
+            ])
         );
 
         return $this->response;

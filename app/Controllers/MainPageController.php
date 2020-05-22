@@ -19,6 +19,7 @@ class MainPageController extends Controller
         $tasks =
             Task::query()
                 ->orderBy($sortField, $sortDirection)
+                ->limit(3)
                 ->get();
 
         $this->response->getBody()->write($this->blade->render('main', compact('tasks', 'sortDirection', 'sortField')));

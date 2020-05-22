@@ -15,4 +15,5 @@ Manager::schema()->create('tasks', function (Blueprint $table) {
     $table->string('email');
     $table->text('content');
     $table->string('status')->default('new');
+    $table->boolean('updated_by_admin')->default(false);
 });

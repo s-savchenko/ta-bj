@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string email
  * @property string content
  * @property string status
+ * @property bool updated_by_admin
  */
 class Task extends Model
 {

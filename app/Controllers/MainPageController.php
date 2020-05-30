@@ -10,16 +10,14 @@ class MainPageController extends Controller
 {
     public function index()
     {
-        $query = $this->request->getQueryParams();
-        $sort = isset($query['sort']) && $query['sort'] ? $query['sort'] : false;
+        $sort = $this->getQueryParam('sort');
         $sortFirstLetter = $sort ? substr($sort, 0, 1) : '';
         $sortDirection = $sortFirstLetter === '-' ? $sortFirstLetter : '';
         $sort = ltrim($sort, '-');
         $sortField = $sort && in_array($sort, ['user_name', 'email', 'status']) ? $sort : 'id';
 
         $perPage = 3;
-        $page = isset($query['page']) ? $query['page'] : 0;
-        $page = filter_var($page, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
+        $page = filter_var($this->getQueryParam('page', 1), FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
         $page = $page && $page > 0 ? $page : 1;
 
         $tasks =

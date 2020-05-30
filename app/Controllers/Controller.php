@@ -32,4 +32,11 @@ abstract class Controller
     {
         return isset($this->request->getParsedBody()[$name]) ? $this->request->getParsedBody()[$name] : '';
     }
+
+    protected function getQueryParam(string $name, $defaultValue = null)
+    {
+        $query = $this->request->getQueryParams();
+
+        return isset($query[$name]) ? $query[$name] : $defaultValue;
+    }
 }

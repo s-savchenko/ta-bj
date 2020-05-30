@@ -22,8 +22,7 @@ class TaskController extends Controller
 
     public function store()
     {
-        $task = new Task();
-        $task = $this->fillTaskWithRequestData($task);
+        $task = new Task($this->getTaskFieldsFromRequest());
 
         if ($this->validate($task)) {
             $task->save();
@@ -34,13 +33,13 @@ class TaskController extends Controller
         return $this->response;
     }
 
-    private function fillTaskWithRequestData(Task $task): Task
+    private function getTaskFieldsFromRequest(): array
     {
-        $task->user_name = trim($this->getPostParam('user_name'));
-        $task->email = trim($this->getPostParam('email'));
-        $task->content = trim($this->getPostParam('content'));
-
-        return $task;
+        return [
+            'user_name' => trim($this->getPostParam('user_name')),
+            'email' => trim($this->getPostParam('email')),
+            'content' => trim($this->getPostParam('content'))
+        ];
     }
 
     private function validate(Task $task): bool
@@ -68,9 +67,8 @@ class TaskController extends Controller
             return $this->response->withStatus(301)->withHeader('Location', '/login');
         }
 
-        $query = $this->request->getQueryParams();
         /** @var Task $task */
-        $task = isset($query['id']) ? Task::find($query['id']) : null;
+        $task = Task::find($this->getQueryParam('id'));
         if ($task) {
             $params = compact('task');
             $params['isAuthenticated'] = $this->isAuthenticated();
@@ -89,12 +87,11 @@ class TaskController extends Controller
             return $this->response->withStatus(301)->withHeader('Location', '/login');
         }
 
-        $query = $this->request->getQueryParams();
         /** @var Task $task */
-        $task = isset($query['id']) ? Task::find($query['id']) : null;
+        $task = Task::find($this->getQueryParam('id'));
         if ($task) {
             $task->updated_by_admin = trim($this->getPostParam('content')) !== $task->content;
-            $task = $this->fillTaskWithRequestData($task);
+            $task->fill($this->getTaskFieldsFromRequest());
             if ($this->validate($task)) {
                 $task->status = $this->getPostParam('done') ? Task::STATUS_DONE : Task::STATUS_NEW;
                 $task->save();

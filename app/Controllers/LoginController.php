@@ -20,7 +20,7 @@ class LoginController extends Controller
         $password = isset($parsedBody['password']) ? $parsedBody['password'] : '';
         $loginFailed = $login === '';
         $passwordFailed = $password === '';
-        $success = $login === 'admin' && $password === '123';
+        $success = $login === getenv('PRIVATEAREA_LOGIN') && $password === getenv('PRIVATEAREA_PASSWORD');
 
         if ($loginFailed || $passwordFailed || !$success) {
             $this->response->getBody()->write(

@@ -7,7 +7,9 @@ use Relay\Relay;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/errorHandler.php';
-require_once __DIR__ . '/env.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
 
 session_start();
 

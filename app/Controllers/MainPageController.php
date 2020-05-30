@@ -16,7 +16,7 @@ class MainPageController extends Controller
         $sort = ltrim($sort, '-');
         $sortField = $sort && in_array($sort, ['user_name', 'email', 'status']) ? $sort : 'id';
 
-        $perPage = 3;
+        $perPage = getenv('TASKS_PERPAGE');
         $page = filter_var($this->getQueryParam('page', 1), FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
         $page = $page && $page > 0 ? $page : 1;
 

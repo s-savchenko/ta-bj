@@ -25,7 +25,7 @@ abstract class Controller
     {
         $cookies = $this->request->getCookieParams();
 
-        return isset($cookies['auth']) && $cookies['auth'] === '111';
+        return isset($cookies['auth']) && $cookies['auth'] === getenv('AUTH_KEY');
     }
 
     protected function getPostParam(string $name): string

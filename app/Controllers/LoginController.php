@@ -31,7 +31,7 @@ class LoginController extends Controller
         } else {
             return
                 $this->response
-                    ->withHeader('Set-cookie', 'auth=111')
+                    ->withHeader('Set-cookie', 'auth=' . getenv('AUTH_KEY'))
                     ->withStatus(301)
                     ->withHeader('Location', '/');
         }

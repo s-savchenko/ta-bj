@@ -15,9 +15,8 @@ class LoginController extends Controller
 
     public function login()
     {
-        $parsedBody = $this->request->getParsedBody();
-        $login = isset($parsedBody['login']) ? trim($parsedBody['login']) : '';
-        $password = isset($parsedBody['password']) ? $parsedBody['password'] : '';
+        $login = trim($this->getPostParam('login'));
+        $password = $this->getPostParam('password');
         $loginFailed = $login === '';
         $passwordFailed = $password === '';
         $success = $login === getenv('PRIVATEAREA_LOGIN') && $password === getenv('PRIVATEAREA_PASSWORD');

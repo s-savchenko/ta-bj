@@ -27,7 +27,7 @@ class TaskController extends Controller
         if ($this->validate($task)) {
             $task->save();
             $_SESSION["task_saved"] = 1;
-            return $this->response->withStatus(301)->withHeader('Location', '/');
+            return $this->redirect('/');
         }
 
         return $this->response;
@@ -64,7 +64,7 @@ class TaskController extends Controller
     public function edit()
     {
         if (!$this->isAuthenticated()) {
-            return $this->response->withStatus(301)->withHeader('Location', '/login');
+            return $this->redirect('/login');
         }
 
         /** @var Task $task */
@@ -84,7 +84,7 @@ class TaskController extends Controller
     public function update()
     {
         if (!$this->isAuthenticated()) {
-            return $this->response->withStatus(301)->withHeader('Location', '/login');
+            return $this->redirect('/login');
         }
 
         /** @var Task $task */
@@ -95,7 +95,7 @@ class TaskController extends Controller
             if ($this->validate($task)) {
                 $task->status = $this->getPostParam('done') ? Task::STATUS_DONE : Task::STATUS_NEW;
                 $task->save();
-                return $this->response->withStatus(301)->withHeader('Location', '/');
+                return $this->redirect('/');
             }
             return $this->response;
         } else {

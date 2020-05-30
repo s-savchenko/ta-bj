@@ -28,20 +28,12 @@ class LoginController extends Controller
             );
             return $this->response;
         } else {
-            return
-                $this->response
-                    ->withHeader('Set-cookie', 'auth=' . getenv('AUTH_KEY'))
-                    ->withStatus(301)
-                    ->withHeader('Location', '/');
+            return $this->redirect('/')->withHeader('Set-cookie', 'auth=' . getenv('AUTH_KEY'));
         }
     }
 
     public function logout()
     {
-        return
-            $this->response
-                ->withHeader('Set-cookie', 'auth=')
-                ->withStatus(301)
-                ->withHeader('Location', '/');
+        return $this->redirect('/')->withHeader('Set-cookie', 'auth=');
     }
 }

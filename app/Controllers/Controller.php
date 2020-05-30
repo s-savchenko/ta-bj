@@ -39,4 +39,9 @@ abstract class Controller
 
         return isset($query[$name]) ? $query[$name] : $defaultValue;
     }
+
+    protected function redirect(string $location): ResponseInterface
+    {
+        return $this->response->withStatus(301)->withHeader('Location', $location);
+    }
 }

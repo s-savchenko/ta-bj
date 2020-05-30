@@ -2,6 +2,8 @@
 
 use DI\ContainerBuilder;
 use Jenssegers\Blade\Blade;
+use Kernel\Template\BladeRender;
+use Kernel\Template\RenderInterface;
 use Laminas\Diactoros\ResponseFactory;
 use Laminas\Diactoros\ServerRequestFactory;
 use Psr\Http\Message\ResponseInterface;
@@ -11,7 +13,10 @@ $containerBuilder = new ContainerBuilder();
 $containerBuilder->addDefinitions([
     ServerRequestInterface::class => fn () => ServerRequestFactory::fromGlobals(),
     ResponseInterface::class => fn () => (new ResponseFactory())->createResponse(),
-    Blade::class => fn () => new Blade(__DIR__ . '/../app/views/', __DIR__ . '/../cache/views/')
+    RenderInterface::class => function () {
+        $blade = new Blade(__DIR__ . '/../app/views/', __DIR__ . '/../cache/views/');
+        return new BladeRender($blade);
+    }
 ]);
 
 return $containerBuilder->build();

@@ -8,7 +8,7 @@ class LoginController extends Controller
 {
     public function index()
     {
-        $this->response->getBody()->write($this->blade->render('login'));
+        $this->response->getBody()->write($this->renderer->render('login'));
 
         return $this->response;
     }
@@ -23,7 +23,7 @@ class LoginController extends Controller
 
         if ($loginFailed || $passwordFailed || !$success) {
             $this->response->getBody()->write(
-                $this->blade->render(
+                $this->renderer->render(
                     'login', compact('login', 'password', 'loginFailed', 'passwordFailed', 'success'))
             );
             return $this->response;

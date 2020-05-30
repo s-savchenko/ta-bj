@@ -11,7 +11,7 @@ class TaskController extends Controller
     public function create()
     {
         $this->response->getBody()->write(
-            $this->blade->render('task', [
+            $this->renderer->render('task', [
                 'task' => new Task(),
                 'isAuthenticated' => $this->isAuthenticated()
             ])
@@ -53,7 +53,7 @@ class TaskController extends Controller
         if ($failed) {
             $isAuthenticated = $this->isAuthenticated();
             $this->response->getBody()->write(
-                $this->blade->render('task',
+                $this->renderer->render('task',
                     compact('task', 'userNameFailed', 'emailFailed', 'contentFailed', 'isAuthenticated'))
             );
         }
@@ -73,7 +73,7 @@ class TaskController extends Controller
             $params = compact('task');
             $params['isAuthenticated'] = $this->isAuthenticated();
             $this->response->getBody()->write(
-                $this->blade->render('task', $params)
+                $this->renderer->render('task', $params)
             );
             return $this->response;
         } else {

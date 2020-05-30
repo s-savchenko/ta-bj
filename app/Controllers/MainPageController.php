@@ -37,7 +37,7 @@ class MainPageController extends Controller
         }
 
         $this->response->getBody()->write(
-            $this->blade->render('main',
+            $this->renderer->render('main',
                 compact('tasks', 'sortDirection', 'sortField', 'pagesCount', 'page', 'isAuthenticated', 'taskSaved'))
         );
 

@@ -4,7 +4,7 @@
 namespace App\Controllers;
 
 
-use Jenssegers\Blade\Blade;
+use Kernel\Template\RenderInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -12,13 +12,13 @@ abstract class Controller
 {
     protected ServerRequestInterface $request;
     protected ResponseInterface $response;
-    protected Blade $blade;
+    protected RenderInterface $renderer;
 
-    public function __construct(ServerRequestInterface $request, ResponseInterface $response, Blade $blade)
+    public function __construct(ServerRequestInterface $request, ResponseInterface $response, RenderInterface $renderer)
     {
         $this->request = $request;
         $this->response = $response;
-        $this->blade = $blade;
+        $this->renderer = $renderer;
     }
 
     protected function isAuthenticated()

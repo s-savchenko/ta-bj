@@ -34,7 +34,7 @@ class TaskController extends Controller
         return $this->response;
     }
 
-    private function fillTaskWithRequestData(Task &$task): Task
+    private function fillTaskWithRequestData(Task $task): Task
     {
         $task->user_name = trim($this->getPostParam('user_name'));
         $task->email = trim($this->getPostParam('email'));

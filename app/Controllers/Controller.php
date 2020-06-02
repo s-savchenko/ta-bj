@@ -42,6 +42,6 @@ abstract class Controller
 
     protected function redirect(string $location): ResponseInterface
     {
-        return $this->response->withStatus(301)->withHeader('Location', $location);
+        return $this->response->withStatus(302)->withHeader('Location', $location);
     }
 }
